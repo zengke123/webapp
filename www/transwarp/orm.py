@@ -88,7 +88,7 @@ class VersionField(Field):
     def __init__(self, name=None):
         super(VersionField, self).__init__(name=name, default=0, ddl='bigint')
 
-_triggers = frozenset(['pre_insert', 'pre_update', 'pre_delete'])  
+_triggers = frozenset(['pre_insert', 'pre_update', 'pre_delete'])
 
 def _gen_sql(table_name,mappings):
     pk=None
@@ -97,7 +97,7 @@ def _gen_sql(table_name,mappings):
         if not hasattr(f,'ddl'):
             raise StandardError('no ddl in field "%s".' % n)
         ddl = f.ddl
-        nnulladbe = f.nullable
+        nullable = f.nullable
         if f.primary_key:
             pk = f.name
         sql.append(nullable and '  `%s` %s,' % (f.name, ddl) or '  `%s` %s not null,' % (f.name, ddl))
