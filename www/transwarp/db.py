@@ -80,7 +80,7 @@ def _select(sql,first,*args):
     sql=sql.replace('?','%s')
     logging.info('SQL: %s , ARGS: %s' %(sql,args))
     try:
-        cursor=_db_ctx.connect.cursor()
+        cursor=_db_ctx.connection.cursor()
         cursor.execute(sql,args)
         if cursor.description:
             names=[x[0] for x in cursor.description]
@@ -88,8 +88,8 @@ def _select(sql,first,*args):
             values = cursor.fetchone()
             if not values:
                 return None
-            return Dict(name,values)
-        return [Dict(name,x) for x in cursor.fetchall()]
+            return Dict(names,values)
+        return [Dict(names,x) for x in cursor.fetchall()]
     finally:
         if cursor:
             cursor.close()
@@ -260,7 +260,7 @@ class _TransactionCtx(object):
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
-    create_engine('root', 'password', 'test', '127.0.0.1')
+    create_engine('root', 'root', 'test', '127.0.0.1')
     update('drop table if exists user')
     update('create table user (id int primary key, name text, email text,passwd text, last_modified real)')
     import doctest
