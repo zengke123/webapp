@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import db
 import time
 import logging
@@ -6,12 +9,12 @@ class Field(object):
     _count = 0
 
     def __init__(self,**kw):
-        self.name = kw.get('name',default=None)
-        self._default = kw.get('default',default=None)
-        self.primary_key = kw.get('primary_key',default=False)
-        self.nullable = kw.get('nullable',default=False)
-        self.updatable = kw.get('updatable',default=True)
-        self.insertable = kw.get('insertable',default=True)
+        self.name = kw.get('name', None)
+        self._default = kw.get('default', None)
+        self.primary_key = kw.get('primary_key', False)
+        self.nullable = kw.get('nullable', False)
+        self.updatable = kw.get('updatable', True)
+        self.insertable = kw.get('insertable', True)
         self.ddl = kw.get('ddl','')
         self._order = Field._count
         Field._count = Field._count + 1
